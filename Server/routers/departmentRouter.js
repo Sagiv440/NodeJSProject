@@ -23,8 +23,8 @@ router.use(async (req, res, next)=>
 router.get("/", async (req, res)=>{
     try{
         const filters = req.query;
-        const employee = await departmentService.getAll(filters)
-        res.send(employee);
+        const department = await departmentService.getAll(filters)
+        res.send(department);
     }
     catch (error) 
     {

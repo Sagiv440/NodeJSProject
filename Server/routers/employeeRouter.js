@@ -1,15 +1,29 @@
 const express = require("express")
 const employeeService = require("../services/employeeServices")
+const jwt = require("jsonwebtoken")
 const router = express.Router();
 const DB  = require("../configs/Db");
 const PORT = require("../settings/consts")
 
 router.use(async (req, res, next)=>
 {
+    /*
+    const token = req.headers['x-access-token'];
+    console.log(token);
+    if (!token) {
+      res.status(401).json('No token provided');
+    }
+  
+    jwt.verify(token, PORT.SECURITY_KEY, (err, data) => {
+      if (err) {
+        res.status(503).json('Failed to authenticate token');
+      }
+  
+      console.log(data);
+    });*/
+
     try
     {
-        //await DB.disconnectDB();
-        //await DB.connectDB(PORT.EMPLOYEE_DB);
         DB.switchDB(PORT.EMPLOYEE_DB).then(()=>
         {
             next();
