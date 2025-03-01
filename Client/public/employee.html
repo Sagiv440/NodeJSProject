@@ -1,0 +1,69 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+</head>
+
+<body>
+    <script>
+        const token = localStorage.getItem('token');
+        
+        if (!token) {
+            alert("You're not logged in!");
+            window.location.href = "login.html"; // Redirect to login
+        } else {
+            console.log("Token:", token);
+
+            // Example: Use token in API request
+            fetch('http://localhost:3000/employees', {
+                method: 'GET',
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            })
+                .then((response) => {
+                    if (!response.ok) {
+                        throw new Error("Faild to fetch data")
+                    } else {
+                        return response.json();
+                    }
+                })
+                .then((data) => {
+                    console.log("Server Data:", data);
+                    const empTable = document.getElementById("employee-table")
+                    const departments = localStorage.getItem('depatments')
+                    console.log("Server Data:", departments);
+                    empTable.innerHTML = "";
+                    for (let i = 0; i < data.length; i++) {
+
+                        const row = `<tr>
+                            <td>${data[i].firstName}</td>
+                            <td>${data[i].lastName}</td>
+                            <td>${data[i].startWorkingYear}</td>     
+                       
+                            </tr>`
+                        empTable.innerHTML += row;
+                    }
+
+                })
+        }
+    </script>
+
+    <h2>Employee List</h2>
+    <button id="logout">Logout</button>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Start Working Year</th>
+                <th>department</th>
+            </tr>
+        </thead>
+        <tbody id="employee-table">
+            <!-- Data will be inserted here -->
+        </tbody>
+    </table>
+</body>
