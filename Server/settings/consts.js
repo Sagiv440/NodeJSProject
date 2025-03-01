@@ -5,6 +5,7 @@ const MONGODB_ADDRESS = 'mongodb://localhost:27017';
 
 const EMPLOYEE_DB = "employeesDB";
 const DEPARTMENT_DB = "departmentsDB";
+const SHIFT_DB = "shiftsDB";
 
 const SECURITY_KEY = 'some_key';
 
@@ -14,5 +15,6 @@ module.exports = {
     MONGODB_ADDRESS,
     EMPLOYEE_DB,
     DEPARTMENT_DB,
+    SHIFT_DB,
     SECURITY_KEY
 }
