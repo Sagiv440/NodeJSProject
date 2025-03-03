@@ -11,8 +11,6 @@ const SECURITY_KEY = 'some_key';
 const FILE = 'configs/logFile.json';
 const USERS_LIST = "https://jsonplaceholder.typicode.com/users"
 
-const EMPTY_LOG = {}
-
 module.exports = {
     SERVER_PORT,
     CLIENT_PORT,

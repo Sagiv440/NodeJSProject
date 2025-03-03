@@ -13,7 +13,7 @@ const login = async (username, email)=>
     else if (user.data[0].email.toLowerCase() !== email.toLowerCase()) {
         return { error: "Wrong Credentials" };
     }else{
-        const token = jwt.sign({ id: user.id }, PORT.SECURITY_KEY, { expiresIn: '1h' });
+        const token = jwt.sign({ id: user.data[0].id }, PORT.SECURITY_KEY, { expiresIn: '1h' });
         return token;
     }
 

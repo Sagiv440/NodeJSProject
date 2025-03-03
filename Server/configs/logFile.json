@@ -1,1 +1,16 @@
-{"actions":[{"maxActions":10,"date":"03-03-2025","actionsAllowd":10}]}
+{
+    "actions": [
+        {
+            "id": 1,
+            "maxActions": 10,
+            "date": "03-03-2025",
+            "actionsAllowd": 10
+        },
+        {
+            "id": 2,
+            "maxActions": 10,
+            "date": "03-03-2025",
+            "actionsAllowd": 10
+        }
+    ]
+}

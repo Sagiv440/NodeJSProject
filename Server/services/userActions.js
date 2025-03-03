@@ -4,18 +4,19 @@ const { parse, isAfter, format, startOfDay } = require('date-fns');
 const logUserAction = async (id, action) => {
     let user = await actionsRepos.getById(id);
     const today = startOfDay(new Date());
-    console.log(`Loaded user is :${user}`)
-    if (user == null) {
+    console.log(`Loaded user is :${id}`)
+    if (user === undefined) {
         user = { id: id, maxActions: 10, date: format(today, "dd-MM-yyyy"), actionsAllowd: 10 };
         await actionsRepos.add(user);
     }
-
+    console.log(user)
     // Convert user date (from "dd-MM-yyyy" format) into a Date object
     const d_user = parse(user.date, "dd-MM-yyyy", new Date());
 
     if (isAfter(today, d_user)) {
         user.date = format(today, "dd-MM-yyyy"); // Update user date
         user.actionsAllowd = user.maxActions; // Reset actions
+        console.log(user)
         await actionsRepos.update(id, user);
         return true;
     } else if (user.actionsAllowd > 0) {
