@@ -4,11 +4,11 @@ const router = express.Router();
 
 // Entry Point: http://localhost:3000/auth
 
-router.post('/login', (req, res)=>
+router.post('/login', async (req, res)=>
 {
     console.log("Just Loging in :)")
-    const {username, password} = req.body;
-    const token = authService.login(username,password);
+    const {username, email} = req.body;
+    const token = await authService.login(username,email);
     res.json({token});
 })
 

@@ -8,6 +8,10 @@ const DEPARTMENT_DB = "departmentsDB";
 const SHIFT_DB = "shiftsDB";
 
 const SECURITY_KEY = 'some_key';
+const FILE = 'configs/logFile.json';
+const USERS_LIST = "https://jsonplaceholder.typicode.com/users"
+
+const EMPTY_LOG = {}
 
 module.exports = {
     SERVER_PORT,
@@ -16,5 +20,7 @@ module.exports = {
     EMPLOYEE_DB,
     DEPARTMENT_DB,
     SHIFT_DB,
-    SECURITY_KEY
+    SECURITY_KEY,
+    FILE,
+    USERS_LIST
 }

@@ -4,36 +4,40 @@ const jwt = require("jsonwebtoken")
 const router = express.Router();
 const DB  = require("../configs/Db");
 const PORT = require("../settings/consts")
+const userActions = require("../services/userActions")
 
-router.use(async (req, res, next)=>
-{
-    /*
-    const token = req.headers['x-access-token'];
-    console.log(token);
-    if (!token) {
-      res.status(401).json('No token provided');
-    }
-  
-    jwt.verify(token, PORT.SECURITY_KEY, (err, data) => {
+router.use(async (req, res, next) => {
+  const token = req.headers['token'];  // Get token from headers
+  console.log("Received Token:", token);
+
+  if (!token) {
+      return res.status(401).json({ error: "No token provided" });
+  }
+
+  // Verify Token
+  jwt.verify(token, PORT.SECURITY_KEY, async (err, decoded) => {
       if (err) {
-        res.status(503).json('Failed to authenticate token');
+          return res.status(503).json({ error: "Failed to authenticate token" });
       }
-  
-      console.log(data);
-    });
 
-    try
-    {
-        DB.switchDB(PORT.EMPLOYEE_DB).then(()=>
-        {
-            next();
-        })
-    }
-    catch(error){
-        res.status(500).send(error);
-    }*/
-    next();
-})
+      console.log("Decoded Data:", decoded);
+
+      // Extract user ID from token
+      const userId = decoded.id;  // Ensure your token contains "id"
+      console.log("User ID:", userId);
+
+      // Attach userId to request for later use
+      req.userId = userId;
+
+      // Verify actions allowed
+      const canProceed = await userActions.logUserAction(userId, 0);
+      if (!canProceed) {
+          return res.status(403).json({ error: "No more actions allowed" });
+      }
+
+      next(); // Move to the next middleware
+  });
+});
 
 //GetAll
 router.get("/", async (req, res)=>{
