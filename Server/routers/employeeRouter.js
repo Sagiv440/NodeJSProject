@@ -20,7 +20,7 @@ router.use(async (req, res, next)=>
       }
   
       console.log(data);
-    });*/
+    });
 
     try
     {
@@ -31,7 +31,8 @@ router.use(async (req, res, next)=>
     }
     catch(error){
         res.status(500).send(error);
-    }
+    }*/
+    next();
 })
 
 //GetAll
@@ -43,6 +44,7 @@ router.get("/", async (req, res)=>{
     }
     catch (error) 
     {
+        console.log(error)
         res.status(500).send(error);
     }
 })

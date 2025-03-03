@@ -6,6 +6,6 @@ const departSchema = new mongoose.Schema({
     manager: Number
 })
 
-const department = mongoose.model("department", departSchema, PORT.DEPARTMENT_DB)
+//const department = mongoose.model("department", departSchema, PORT.DEPARTMENT_DB)
 
-module.exports = department;
+module.exports = departSchema;

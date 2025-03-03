@@ -6,7 +6,7 @@ const PORT = require("../settings/consts")
 
 router.use(async (req, res, next)=>
 {
-    try
+    /*try
     {
       DB.switchDB(PORT.DEPARTMENT_DB).then(()=>
       {
@@ -16,7 +16,8 @@ router.use(async (req, res, next)=>
     catch(error){
         console.log(`${error}`)
         res.status(505).send(error);
-    }
+    }*/
+    next();
 })
 
 //GetAll
@@ -28,6 +29,7 @@ router.get("/", async (req, res)=>{
     }
     catch (error) 
     {
+        console.log(`${error}`)
         res.status(500).send(error);
     }
 })

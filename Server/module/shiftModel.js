@@ -6,6 +6,6 @@ const shiftSchema = new mongoose.Schema({
     endingHour: Number
 })
 
-const shift = mongoose.model("shift", shiftSchema, "shiftsDB")
+//const shift = mongoose.model("shift", shiftSchema, "shiftsDB")
 
-module.exports = shift;
+module.exports = shiftSchema;

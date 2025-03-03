@@ -1,28 +1,29 @@
 const employeeRepo = require("../repositories/employRepos")
 
-const getAll = (filters)=>
+const getAll = async (filters)=>
 {
-    return employeeRepo.getAll(filters);
+    const data = await employeeRepo.getAll(filters);
+    return data;
 }
 
-const getById = (id)=>
+const getById = async (id)=>
 {
-    return employeeRepo.getById(id)
+    return await employeeRepo.getById(id)
 }
 
-const add = (obj)=>
+const add = async (obj)=>
 {
-    return employeeRepo.add(obj);
+    return await employeeRepo.add(obj);
 }
 
-const update = (id, obj)=>
+const update = async (id, obj)=>
 {
-    return employeeRepo.update(id, obj);
+    return await employeeRepo.update(id, obj);
 }
 
-const deleteById = (id)=>
+const deleteById = async (id)=>
 {
-    return employeeRepo.deleteById(id);
+    return await employeeRepo.deleteById(id);
 }
 
 module.exports = {

@@ -1,28 +1,28 @@
 const departmentRepo = require("../repositories/departmentRepos")
 
-const getAll = (filters)=>
+const getAll = async (filters)=>
 {
-    return departmentRepo.getAll(filters);
+    return await departmentRepo.getAll(filters);
 }
 
-const getById = (id)=>
+const getById = async (id)=>
 {
-    return departmentRepo.getById(id)
+    return await departmentRepo.getById(id)
 }
 
-const add = (obj)=>
+const add = async (obj)=>
 {
-    return departmentRepo.add(obj);
+    return await departmentRepo.add(obj);
 }
 
-const update = (id, obj)=>
+const update = async (id, obj)=>
 {
-    return departmentRepo.update(id, obj);
+    return await departmentRepo.update(id, obj);
 }
 
-const deleteById = (id)=>
+const deleteById = async (id)=>
 {
-    return departmentRepo.deleteById(id);
+    return await departmentRepo.deleteById(id);
 }
 
 module.exports = {

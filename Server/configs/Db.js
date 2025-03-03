@@ -1,32 +1,42 @@
 const mongoose = require("mongoose");
 const PORT = require("../settings/consts")
 
-const connectDB = (dataSet)=>
-{
-    const fullpath = `${PORT.MONGODB_ADDRESS}/${dataSet}`;
-    console.log(`Connecting to ${fullpath}`)
-    mongoose.connect(fullpath).then(()=>
-    {
-        console.log(`Connected to ${dataSet}`)
-    }).catch((error)=>console.log(`ERROR::Faild to connect to ${dataSet}: ${error}`))
-}
-const disconnectDB = () => {
-    const dbName = mongoose.connection.name;
-    return mongoose.disconnect()
-        .then(() => console.log(`Disconnected from ${dbName}`))
-        .catch((error) => console.log(`ERROR::Failed to disconnect from ${dbName}: ${error}`));
-}
 
-const switchDB = async (dataSet)=>
-{
-    if(mongoose.connection.name !== dataSet)
-        {
-            await disconnectDB();
-            await connectDB(dataSet);
-        }
-}
+const connectionPool = {}; // Stores connections to different databases
+
+const connectDB = async (dataSet) => {
+    if (connectionPool[dataSet]) {
+        console.log(`🔄 Using existing connection to ${dataSet}`);
+        return connectionPool[dataSet]; // Return the existing connection
+    }
+
+    try {
+        const fullpath = `${PORT.MONGODB_ADDRESS}/${dataSet}`;
+        console.log(`🌍 Connecting to ${fullpath}`);
+
+        const newConnection = await mongoose.createConnection(fullpath, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+        });
+
+        connectionPool[dataSet] = newConnection; // Store connection in pool
+        console.log(`✅ Connected to ${dataSet}`);
+
+        return newConnection;
+    } catch (error) {
+        console.error(`❌ ERROR::Failed to connect to ${dataSet}: ${error}`);
+        throw error;
+    }
+};
+
+const switchDB = async (dataSet) => {
+    if (!connectionPool[dataSet]) {
+        await connectDB(dataSet);
+    }
+    return connectionPool[dataSet]; // Return the connection to the requested database
+};
+
 module.exports = {
     connectDB,
-    disconnectDB,
-    switchDB
+    switchDB,
 };

@@ -8,6 +8,6 @@ const employeeSchema = new mongoose.Schema({
     departmentId: { type: mongoose.Schema.Types.ObjectId, ref: 'departDB' }
 })
 
-const employee = mongoose.model("employee", employeeSchema, PORT.EMPLOYEE_DB)
+//const employee = mongoose.model("employee", employeeSchema, PORT.EMPLOYEE_DB)
 
-module.exports = employee;
+module.exports = employeeSchema;

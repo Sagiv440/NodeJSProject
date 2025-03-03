@@ -1,28 +1,28 @@
 const shiftRepo = require("../repositories/shiftRepos")
 
-const getAll = (filters)=>
+const getAll = async (filters)=>
 {
-    return shiftRepo.getAll(filters);
+    return await shiftRepo.getAll(filters);
 }
 
-const getById = (id)=>
+const getById = async (id)=>
 {
-    return shiftRepo.getById(id)
+    return await shiftRepo.getById(id)
 }
 
-const add = (obj)=>
+const add = async (obj)=>
 {
-    return shiftRepo.add(obj);
+    return await shiftRepo.add(obj);
 }
 
-const update = (id, obj)=>
+const update = async (id, obj)=>
 {
-    return shiftRepo.update(id, obj);
+    return await shiftRepo.update(id, obj);
 }
 
-const deleteById = (id)=>
+const deleteById = async (id)=>
 {
-    return shiftRepo.deleteById(id);
+    return await shiftRepo.deleteById(id);
 }
 
 module.exports = {
