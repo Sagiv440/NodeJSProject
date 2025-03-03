@@ -65,8 +65,8 @@ router.get("/", async (req, res)=>{
 router.get("/:id", async (req, res)=>{
     try{
         const { id } = req.params;
-        const employee = await shiftService.getById(id);
-        res.send(employee);
+        const shift = await shiftService.getById(id);
+        res.send(shift);
     }
     catch (error) 
     {
@@ -74,12 +74,12 @@ router.get("/:id", async (req, res)=>{
     }
 })
 
-// Add a new employee
+// Add a new shift
 router.post('/', async (req, res) => {
     try {
 
       
-      console.log("Adding new employee")
+      console.log("Adding new shift")
       const empData = req.body;
       const newEmp = await shiftService.add(empData);
       res.status(201).send(`The new ID: ${newEmp._id}`);
@@ -88,7 +88,7 @@ router.post('/', async (req, res) => {
     }
   });
   
-// Update a employee
+// Update a shift
   router.put('/:id', async (req, res) => {
     try {
       const { id } = req.params;
@@ -100,7 +100,7 @@ router.post('/', async (req, res) => {
     }
   });
   
-  /*// Delete a employee
+  /*// Delete a shift
   router.delete('/:id', async (req, res) => {
     try {
       const { id } = req.params;

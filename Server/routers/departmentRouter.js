@@ -71,7 +71,7 @@ router.get("/:id", async (req, res) => {
   }
 })
 
-// Add a new employee
+// Add a new department
 router.post('/', async (req, res) => {
   try {
     console.log("Adding new department")
@@ -83,7 +83,7 @@ router.post('/', async (req, res) => {
   }
 });
 
-// Update a employee
+// Update a department
 router.put('/:id', async (req, res) => {
   try {
     const { id } = req.params;
@@ -95,7 +95,7 @@ router.put('/:id', async (req, res) => {
   }
 });
 
-// Delete a employee
+// Delete a department
 router.delete('/:id', async (req, res) => {
   try {
     const { id } = req.params;
