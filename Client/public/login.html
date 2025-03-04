@@ -10,17 +10,18 @@
         const login = async ()=>
          {
             const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
+            const email = document.getElementById('email').value;
 
             const response = await fetch('http://localhost:3000/auth/login', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ username, password })
+                body: JSON.stringify({ username, email })
             });
             if (response.ok) {
                 const data = await response.json();
                 localStorage.setItem('token', data.token);
                 alert(`Login successful! Token saved.${data.token}`);
+                window.location = 'http://localhost:4000/employee.html';
             } else {
                 alert('Login failed');
             }
@@ -33,7 +34,7 @@
 
     <h2>logging</h2>
     Username <input type="text" id="username" required><br/>
-    password <input type="password" id="password" required><br/>
+    email <input type="text" id="email" required><br/>
 
     <button type="login" id="lg">login</button>
 </body>

@@ -8,18 +8,35 @@
 
 <body>
     <script>
+        let departments = [];
         const token = localStorage.getItem('token');
-        
+        console.log("Token:", token);
         if (!token) {
             alert("You're not logged in!");
             window.location.href = "login.html"; // Redirect to login
         } else {
             console.log("Token:", token);
 
-            // Example: Use token in API request
+            fetch('http://localhost:3000/departments', {
+                method: 'GET',
+                headers: { 'token': token },
+                'Content-Type': 'application/json'
+            }).then((response) => {
+                    if (!response.ok) {
+                        throw new Error("Faild to fetch data")
+                    } else {
+                        return response.json();
+                        localStorage.setItem('departments', response.json());
+                    }
+                }) .then((data) => {
+                    departments = data;
+                    console.log("Server Departments:", departments);
+                })
+
+
             fetch('http://localhost:3000/employees', {
                 method: 'GET',
-                'Authorization': `Bearer ${token}`,
+                headers: { 'token': token },
                 'Content-Type': 'application/json'
             })
                 .then((response) => {
@@ -32,21 +49,31 @@
                 .then((data) => {
                     console.log("Server Data:", data);
                     const empTable = document.getElementById("employee-table")
-                    const departments = localStorage.getItem('depatments')
                     console.log("Server Data:", departments);
                     empTable.innerHTML = "";
-                    for (let i = 0; i < data.length; i++) {
 
+                    for (let i = 0; i < data.length; i++) {
+                        const dep = departments.find((e)=> e.id === data[i].departmentsId)
                         const row = `<tr>
                             <td>${data[i].firstName}</td>
                             <td>${data[i].lastName}</td>
                             <td>${data[i].startWorkingYear}</td>     
-                       
+                            <td>${dep.name}</td>   
                             </tr>`
                         empTable.innerHTML += row;
                     }
-
                 })
+                const logout = () =>
+                {
+                    localStorage.setItem("token", "");
+                    window.location = "http://localhost:4000/login.html";
+                    
+                }
+
+                document.addEventListener("DOMContentLoaded", function () {
+                document.getElementById("logout").addEventListener("click", logout);
+
+        });
         }
     </script>
 
