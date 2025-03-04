@@ -2,6 +2,7 @@ const express = require("express")
 const departmentService = require("../services/departmentService")
 const router = express.Router();
 const DB = require("../configs/Db");
+const jwt = require("jsonwebtoken")
 const PORT = require("../settings/consts")
 const userActions = require("../services/userActions")
 
