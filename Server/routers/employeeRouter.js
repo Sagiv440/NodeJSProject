@@ -31,7 +31,7 @@ router.use(async (req, res, next) => {
     const actionCost = req.method === 'GET' ? 0 : 1
 
     // Verify actions allowed
-    const canProceed = await userActions.logUserAction(userId, actionCost); 
+    const canProceed = await userActions.logUserAction(userId, actionCost);
     if (!canProceed) {
       return res.status(403).json({ error: "No more actions allowed" });
     }
