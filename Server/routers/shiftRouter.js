@@ -30,20 +30,14 @@ router.use(async (req, res, next) => {
       // Attach userId to request for later use
       req.userId = userId;
 
-      // Verify actions allowed
-      const canProceed = await userActions.logUserAction(userId, 0);
-      if (!canProceed) {
-          return res.status(403).json({ error: "No more actions allowed" });
-      }
+    //Count actions only on (POST, PUT, DELETE,)
+    const actionCost = req.method === 'GET' ? 0 : 1
 
-      //Count actions only on (POST, PUT, DELETE,)
-      if (req.method !== 'GET') {
-        const canProceed = await userActions.logUserAction(userId, 1);
-        if (!canProceed) {
-            return res.status(403).json({ error: "No more actions allowed" });
-        }
-      }
-
+    // Verify actions allowed
+    const canProceed = await userActions.logUserAction(userId, actionCost); 
+    if (!canProceed) {
+      return res.status(403).json({ error: "No more actions allowed" });
+    }
       next(); // Move to the next middleware
   });
 });
